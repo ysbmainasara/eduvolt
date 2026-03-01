@@ -1,1 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>EduVolt - Engineering Toolkit</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
 
+header {
+    padding: 40px 20px;
+}
+
+section {
+    padding: 30px 20px;
+}
+
+.card {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 400px;
+    border-radius: 15px;
+}
+
+input, select {
+    padding: 10px;
+    margin: 5px;
+    width: 80%;
+    border-radius: 8px;
+    border: none;
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 20px;
+    border: none;
+    background: #00ffcc;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: white;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>⚡ EduVolt Toolkit</h1>
+    <p>Engineering Student Utility Tools</p>
+</header>
+
+<section class="card">
+    <h2>CGPA Calculator</h2>
+    <input type="number" id="unit" placeholder="Course Unit">
+    <select id="grade">
+        <option value="5">A</option>
+        <option value="4">B</option>
+        <option value="3">C</option>
+        <option value="2">D</option>
+        <option value="1">E</option>
+        <option value="0">F</option>
+    </select>
+    <br>
+    <button onclick="addCourse()">Add Course</button>
+    <button onclick="calculateCGPA()">Calculate CGPA</button>
+    <p id="cgpaResult"></p>
+</section>
+
+<section class="card">
+    <h2>Wavelength Calculator</h2>
+    <input type="number" id="frequency" placeholder="Frequency (Hz)">
+    <br>
+    <button onclick="calculateWavelength()">Calculate</button>
+    <p id="waveResult"></p>
+</section>
+
+<script>
+let totalPoints = 0;
+let totalUnits = 0;
+
+function addCourse() {
+    let unit = parseFloat(document.getElementById("unit").value);
+    let grade = parseFloat(document.getElementById("grade").value);
+
+    if (!unit) {
+        alert("Enter course unit");
+        return;
+    }
+
+    totalPoints += unit * grade;
+    totalUnits += unit;
+
+    alert("Course added!");
+}
+
+function calculateCGPA() {
+    if (totalUnits === 0) {
+        alert("Add courses first!");
+        return;
+    }
+
+    let cgpa = totalPoints / totalUnits;
+    document.getElementById("cgpaResult").innerHTML =
+        "Your CGPA is: " + cgpa.toFixed(2);
+}
+
+function calculateWavelength() {
+    let frequency = parseFloat(document.getElementById("frequency").value);
+
+    if (!frequency) {
+        alert("Enter frequency!");
+        return;
+    }
+
+    let speedOfLight = 3e8;
+    let wavelength = speedOfLight / frequency;
+
+    document.getElementById("waveResult").innerHTML =
+        "Wavelength = " + wavelength.toExponential(3) + " meters";
+}
+</script>
+
+</body>
+</html>
